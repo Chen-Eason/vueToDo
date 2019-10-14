@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>todolist</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- <script src="D:\vue\vue.min.js"></script> -->
+	<!-- <script src="../lib/vue/dist/vue.js"></script> -->
+</head>
+<style>
+	.finish{
+		text-decoration: underline;
+	}
+	#app li{
+		cursor: pointer;
+	}
+</style>
+<body>
+	<div id="app">
+		<h1 v-text="title"></h1>
+		<input type="text" v-model="newItem" v-on:keyup.enter="addItem">
+		<input type="button" value="添加" v-on:click="addItem">
+		<ul>
+			<li v-for="item in items" v-bind:class="{finish: item.isFinished}" v-on:click="changeFinfsh(item)">{{item.label}} <input type="checkbox"></li>
+		</ul>
+	</div>
+	<script>
+		window.onload = function(){
+			new Vue({
+			el: '#app',
+			data:{
+				title: 'Eason',
+				items:[
+				{
+					label:'a',
+					isFinished:true
+				},
+				{
+					label:'b',
+					isFinished:true
+				}
+				],
+				newItem:''
+			},
+			methods:{
+				changeFinfsh:function(item){
+					item.isFinished = !item.isFinished;
+				},
+				addItem:function(){
+					if(this.newItem!=''){
+						this.items.push({//push()向数组末尾添加一个或多个元素
+							label: this.newItem,
+							isFinished:true
+						});
+					}
+					this.newItem = '';
+				}
+			}
+		});
+		}
+		
+	</script>
+</body>
+</html>
